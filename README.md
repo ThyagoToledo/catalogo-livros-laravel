@@ -1,6 +1,6 @@
 # Catálogo de Livros
 
-Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e SQLite.
+Este é um projeto de estudos que criei para praticar um CRUD com Laravel e SQLite.
 
 ## Tecnologias
 
@@ -20,21 +20,13 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - [x] Excluir livros
 - [x] Buscar e filtrar livros
 
-## O que estou aprendendo
+## O que aprendi
 
-- Aprendi a criar um Model e uma Migration usando o Artisan.
-- Entendi que a Migration define a estrutura da tabela no banco de dados.
-- Aprendi a usar o `$fillable` para informar quais campos podem ser preenchidos.
-- Aprendi a usar um controller resource para organizar as ações do catálogo.
-- Entendi como as rotas nomeadas conectam os formulários, o controller e as views.
-- Usei a validação do Laravel para impedir o cadastro de dados inválidos.
-- Aprendi a preencher o formulário de edição com os dados atuais e preservar os valores após erros de validação.
-- Aprendi a enviar exclusões com um formulário protegido por CSRF e a pedir confirmação antes de remover um livro.
-- Aprendi a complementar a validação do Laravel com feedback acessível no navegador e a reutilizar os mesmos campos no cadastro e na edição.
-- Aprendi a impedir duplicidades pelo conjunto de título e autor, ignorando diferenças entre letras maiúsculas e minúsculas.
-- Aprendi a combinar consultas por texto e status, preservando os filtros na tela.
-- Aprendi a testar os fluxos de cadastro, listagem, edição e exclusão com um banco isolado para cada teste.
-- Revisei a navegação por teclado com foco visível, link para pular ao conteúdo e indicação da página atual.
+- Usei migrations e models para criar e acessar a tabela de livros.
+- Organizei o CRUD com um controller resource, rotas nomeadas e views Blade.
+- Trabalhei com validação no servidor e no navegador, proteção CSRF e mensagens de erro nos formulários.
+- Implementei busca, filtro e uma regra para evitar livros duplicados pelo título e autor.
+- Criei testes para os principais fluxos e revisei a navegação por teclado.
 
 ## Como desenvolvi
 
@@ -48,8 +40,7 @@ Criei o Model `Book` para representar os livros no sistema. Nele, defini os camp
 
 ### Controller
 
-Criei o `BookController` para listar os livros, abrir os formulários e validar, salvar, atualizar e excluir os dados enviados. A listagem pode ser pesquisada por título, autor ou categoria e filtrada pelo status.
-O catálogo considera duplicado um livro com o mesmo título e autor, mesmo quando a capitalização é diferente.
+Centralizei no `BookController` as ações de listar, cadastrar, editar e excluir. Também coloquei nele a busca por texto, o filtro por status e a validação que impede livros duplicados.
 
 ### Rotas
 
@@ -57,11 +48,11 @@ Configurei rotas resource para manter as URLs e as ações do catálogo organiza
 
 ### Views
 
-Criei um layout compartilhado e as telas de listagem, cadastro e edição com Blade. Os dois formulários reutilizam os mesmos campos, preservam os dados preenchidos quando há um erro e exibem feedback acessível. A listagem permite excluir um livro após confirmação.
+Criei um layout compartilhado e as telas de listagem, cadastro e edição com Blade. Cadastro e edição usam os mesmos campos, e a exclusão pede uma confirmação antes de continuar.
 
 ### CSS e JavaScript
 
-Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os botões, os alertas e os estados mais claros. Em telas pequenas, cada livro vira um cartão com ações fáceis de usar. O JavaScript complementa a validação do navegador com mensagens em português e foco no primeiro campo inválido, sem substituir a validação do servidor.
+Fiz o CSS sem biblioteca visual. Em telas menores, as linhas da tabela se transformam em cartões. O JavaScript mostra mensagens de validação em português e leva o foco para o primeiro campo inválido.
 
 ## Dificuldades e soluções
 
@@ -80,6 +71,8 @@ Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os b
 
 ## Como executar
 
+Primeiro, instale as dependências e prepare o arquivo de ambiente:
+
 ```powershell
 composer install
 npm.cmd install
@@ -88,4 +81,22 @@ php artisan key:generate
 php artisan migrate
 ```
 
-Depois, execute `php artisan serve` e `npm.cmd run dev` em terminais separados. Para verificar o projeto, use `php artisan test --compact` e `npm.cmd run build`.
+Para iniciar o projeto, abra dois terminais.
+
+No primeiro terminal:
+
+```powershell
+php artisan serve
+```
+
+No segundo:
+
+```powershell
+npm.cmd run dev
+```
+
+Os testes podem ser executados com:
+
+```powershell
+php artisan test --compact
+```
