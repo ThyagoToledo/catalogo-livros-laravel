@@ -10,6 +10,8 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo principal</a>
+
     <header class="site-header">
         <div class="container">
             <a class="site-title" href="{{ route('books.index') }}">
@@ -17,18 +19,18 @@
             </a>
 
             <nav aria-label="Navegação principal">
-                <a href="{{ route('books.index') }}">
+                <a href="{{ route('books.index') }}" @if (request()->routeIs('books.index', 'books.edit')) aria-current="page" @endif>
                     Lista de livros
                 </a>
 
-                <a href="{{ route('books.create') }}">
+                <a href="{{ route('books.create') }}" @if (request()->routeIs('books.create')) aria-current="page" @endif>
                     Cadastrar livro
                 </a>
             </nav>
         </div>
     </header>
 
-    <main class="container">
+    <main id="conteudo-principal" class="container" tabindex="-1">
         @if (session('success'))
             <div class="alert alert-success" role="status">
                 {{ session('success') }}

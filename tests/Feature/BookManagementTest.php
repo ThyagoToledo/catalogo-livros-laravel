@@ -10,6 +10,12 @@ class BookManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_home_redirects_to_the_books_list(): void
+    {
+        $this->get('/')
+            ->assertRedirectToRoute('books.index');
+    }
+
     public function test_books_list_is_displayed(): void
     {
         Book::create([
@@ -140,6 +146,25 @@ class BookManagementTest extends TestCase
         $this->assertDatabaseCount('books', 0);
     }
 
+    public function test_book_fields_must_have_valid_types_lengths_and_status(): void
+    {
+        $response = $this->post(route('books.store'), [
+            'title' => str_repeat('T', 256),
+            'author' => ['Autor inválido'],
+            'category' => str_repeat('C', 256),
+            'status' => 'indisponível',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'title' => 'O título não pode ter mais de 255 caracteres.',
+            'author' => 'O autor deve ser um texto.',
+            'category' => 'A categoria não pode ter mais de 255 caracteres.',
+            'status' => 'Selecione um status válido.',
+        ]);
+
+        $this->assertDatabaseCount('books', 0);
+    }
+
     public function test_create_form_has_shared_accessible_browser_validation(): void
     {
         $this->get(route('books.create'))
@@ -149,6 +174,16 @@ class BookManagementTest extends TestCase
             ->assertSee('required aria-describedby="title-feedback" aria-invalid="false"', false)
             ->assertSee('id="title-feedback" class="form-error" aria-live="polite"', false)
             ->assertSee('value="">Selecione um status', false);
+    }
+
+    public function test_layout_offers_navigation_landmarks_and_a_skip_link(): void
+    {
+        $this->get(route('books.index'))
+            ->assertOk()
+            ->assertSee('href="#conteudo-principal"', false)
+            ->assertSee('aria-label="Navegação principal"', false)
+            ->assertSee('aria-current="page"', false)
+            ->assertSee('id="conteudo-principal"', false);
     }
 
     public function test_edit_form_displays_the_current_book_data(): void

@@ -33,6 +33,8 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - Aprendi a complementar a validação do Laravel com feedback acessível no navegador e a reutilizar os mesmos campos no cadastro e na edição.
 - Aprendi a impedir duplicidades pelo conjunto de título e autor, ignorando diferenças entre letras maiúsculas e minúsculas.
 - Aprendi a combinar consultas por texto e status, preservando os filtros na tela.
+- Aprendi a testar os fluxos de cadastro, listagem, edição e exclusão com um banco isolado para cada teste.
+- Revisei a navegação por teclado com foco visível, link para pular ao conteúdo e indicação da página atual.
 
 ## Como desenvolvi
 
@@ -59,7 +61,7 @@ Criei um layout compartilhado e as telas de listagem, cadastro e edição com Bl
 
 ### CSS e JavaScript
 
-Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os botões, os alertas e os estados mais claros. Em telas pequenas, cada livro vira um cartão com ações fáceis de usar.
+Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os botões, os alertas e os estados mais claros. Em telas pequenas, cada livro vira um cartão com ações fáceis de usar. O JavaScript complementa a validação do navegador com mensagens em português e foco no primeiro campo inválido, sem substituir a validação do servidor.
 
 ## Dificuldades e soluções
 
@@ -73,12 +75,17 @@ Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os b
 - [Blade](https://laravel.com/docs/13.x/blade)
 - [Proteção CSRF](https://laravel.com/docs/13.x/csrf)
 - [Validação](https://laravel.com/docs/13.x/validation)
+- [Testes HTTP](https://laravel.com/docs/13.x/http-tests)
+- [Banco de dados nos testes](https://laravel.com/docs/13.x/database-testing)
 
 ## Como executar
 
 ```powershell
 composer install
 npm.cmd install
-php artisan serve
-npm.cmd run dev
+Copy-Item .env.example .env
+php artisan key:generate
+php artisan migrate
 ```
+
+Depois, execute `php artisan serve` e `npm.cmd run dev` em terminais separados. Para verificar o projeto, use `php artisan test --compact` e `npm.cmd run build`.
