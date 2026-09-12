@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-actions">
-            <a href="{{ route('books.index') }}" class="button">Cancelar</a>
+            <a href="{{ route('books.index') }}" class="button button-secondary">Cancelar</a>
             <button type="submit" class="button">Salvar alterações</button>
         </div>
     </form>

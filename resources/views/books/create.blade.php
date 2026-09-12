@@ -87,7 +87,7 @@
         </div>
 
         <div class="form-actions">
-            <a href="{{ route('books.index') }}" class="button">
+            <a href="{{ route('books.index') }}" class="button button-secondary">
                 Cancelar
             </a>
 

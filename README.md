@@ -54,6 +54,8 @@ Criei um layout compartilhado e as telas de listagem, cadastro e edição com Bl
 
 ### CSS e JavaScript
 
+Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os botões, os alertas e os estados mais claros. Em telas pequenas, cada livro vira um cartão com ações fáceis de usar.
+
 ## Dificuldades e soluções
 
 - **Dificuldade:** digitei o comando `make:model` de forma incorreta no terminal.
@@ -61,7 +63,7 @@ Criei um layout compartilhado e as telas de listagem, cadastro e edição com Bl
 
 ## Próximos passos
 
-- [ ] Criar o CSS próprio e responsivo.
+- [ ] Adicionar validação e feedback visual aos formulários.
 
 ## Fontes para estudo
 

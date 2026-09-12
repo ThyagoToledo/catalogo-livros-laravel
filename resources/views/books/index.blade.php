@@ -32,33 +32,35 @@
                 <tbody>
                     @forelse ($books as $book)
                         <tr>
-                            <td>{{ $book->title }}</td>
-                            <td>{{ $book->author }}</td>
-                            <td>{{ $book->category }}</td>
-                            <td>
+                            <td data-label="Título">{{ $book->title }}</td>
+                            <td data-label="Autor">{{ $book->author }}</td>
+                            <td data-label="Categoria">{{ $book->category }}</td>
+                            <td data-label="Status">
                                 @if ($book->status === 'available')
-                                    Disponível
+                                    <span class="status status-available">Disponível</span>
                                 @else
-                                    Emprestado
+                                    <span class="status status-borrowed">Emprestado</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('books.edit', $book) }}">
-                                    Editar
-                                </a>
+                            <td data-label="Ações">
+                                <div class="table-actions">
+                                    <a href="{{ route('books.edit', $book) }}" class="button button-secondary button-small">
+                                        Editar
+                                    </a>
 
-                                <form
-                                    action="{{ route('books.destroy', $book) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Tem certeza que deseja excluir este livro?')"
-                                >
-                                    @csrf
-                                    @method('DELETE')
+                                    <form
+                                        action="{{ route('books.destroy', $book) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Tem certeza que deseja excluir este livro?')"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
 
-                                    <button type="submit">
-                                        Excluir
-                                    </button>
-                                </form>
+                                        <button type="submit" class="button-danger button-small">
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
