@@ -46,6 +46,32 @@ class BookManagementTest extends TestCase
         $this->assertDatabaseHas('books', $book);
     }
 
+    public function test_a_duplicate_book_cannot_be_created(): void
+    {
+        Book::create([
+            'title' => 'Água Viva',
+            'author' => 'Clarice Lispector',
+            'category' => 'Romance',
+            'status' => 'available',
+        ]);
+
+        $this->post(route('books.store'), [
+            'title' => '  ÁGUA VIVA  ',
+            'author' => 'CLARICE LISPECTOR',
+            'category' => 'Clássico',
+            'status' => 'borrowed',
+        ])
+            ->assertSessionHasErrors([
+                'title' => 'Este livro já está cadastrado para o autor informado.',
+            ]);
+
+        $this->assertDatabaseCount('books', 1);
+        $this->assertDatabaseHas('books', [
+            'normalized_title' => 'água viva',
+            'normalized_author' => 'clarice lispector',
+        ]);
+    }
+
     public function test_book_fields_are_required(): void
     {
         $response = $this->post(route('books.store'), []);
@@ -142,6 +168,57 @@ class BookManagementTest extends TestCase
         $this->assertDatabaseHas('books', [
             'id' => $book->id,
             ...$updatedBook,
+        ]);
+    }
+
+    public function test_a_book_cannot_be_updated_to_duplicate_another_book(): void
+    {
+        Book::create([
+            'title' => 'Dom Casmurro',
+            'author' => 'Machado de Assis',
+            'category' => 'Romance',
+            'status' => 'available',
+        ]);
+        $book = Book::create([
+            'title' => 'Iracema',
+            'author' => 'José de Alencar',
+            'category' => 'Romance',
+            'status' => 'available',
+        ]);
+
+        $this->put(route('books.update', $book), [
+            'title' => 'DOM CASMURRO',
+            'author' => 'machado de assis',
+            'category' => 'Romance',
+            'status' => 'borrowed',
+        ])->assertSessionHasErrors('title');
+
+        $this->assertDatabaseHas('books', [
+            'id' => $book->id,
+            'title' => 'Iracema',
+        ]);
+    }
+
+    public function test_a_book_can_be_updated_without_conflicting_with_itself(): void
+    {
+        $book = Book::create([
+            'title' => 'O Alienista',
+            'author' => 'Machado de Assis',
+            'category' => 'Conto',
+            'status' => 'available',
+        ]);
+
+        $this->put(route('books.update', $book), [
+            'title' => 'O Alienista',
+            'author' => 'Machado de Assis',
+            'category' => 'Clássico',
+            'status' => 'borrowed',
+        ])->assertSessionDoesntHaveErrors();
+
+        $this->assertDatabaseHas('books', [
+            'id' => $book->id,
+            'category' => 'Clássico',
+            'status' => 'borrowed',
         ]);
     }
 

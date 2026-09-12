@@ -30,6 +30,7 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - Aprendi a preencher o formulário de edição com os dados atuais e preservar os valores após erros de validação.
 - Aprendi a enviar exclusões com um formulário protegido por CSRF e a pedir confirmação antes de remover um livro.
 - Aprendi a complementar a validação do Laravel com feedback acessível no navegador e a reutilizar os mesmos campos no cadastro e na edição.
+- Aprendi a impedir duplicidades pelo conjunto de título e autor, ignorando diferenças entre letras maiúsculas e minúsculas.
 
 ## Como desenvolvi
 
@@ -44,6 +45,7 @@ Criei o Model `Book` para representar os livros no sistema. Nele, defini os camp
 ### Controller
 
 Criei o `BookController` para listar os livros, abrir os formulários e validar, salvar, atualizar e excluir os dados enviados.
+O catálogo considera duplicado um livro com o mesmo título e autor, mesmo quando a capitalização é diferente.
 
 ### Rotas
 
@@ -64,7 +66,7 @@ Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os b
 
 ## Próximos passos
 
-- [ ] Impedir o cadastro de livros duplicados.
+- [ ] Adicionar busca e filtro ao catálogo.
 
 ## Fontes para estudo
 
