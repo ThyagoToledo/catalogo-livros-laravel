@@ -14,8 +14,8 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 
 ## Objetivos
 
-- [ ] Cadastrar livros
-- [ ] Listar livros
+- [x] Cadastrar livros
+- [x] Listar livros
 - [ ] Editar livros
 - [ ] Excluir livros
 
@@ -24,6 +24,9 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - Aprendi a criar um Model e uma Migration usando o Artisan.
 - Entendi que a Migration define a estrutura da tabela no banco de dados.
 - Aprendi a usar o `$fillable` para informar quais campos podem ser preenchidos.
+- Aprendi a usar um controller resource para organizar as ações do catálogo.
+- Entendi como as rotas nomeadas conectam os formulários, o controller e as views.
+- Usei a validação do Laravel para impedir o cadastro de dados inválidos.
 
 ## Como desenvolvi
 
@@ -37,9 +40,15 @@ Criei o Model `Book` para representar os livros no sistema. Nele, defini os camp
 
 ### Controller
 
+Criei o `BookController` para listar os livros, abrir o formulário e validar e salvar os dados enviados.
+
 ### Rotas
 
+Configurei rotas resource para manter as URLs e as ações do catálogo organizadas. A página inicial redireciona para a lista de livros.
+
 ### Views
+
+Criei um layout compartilhado e as telas de listagem e cadastro com Blade. O formulário preserva os dados preenchidos quando há um erro de validação.
 
 ### CSS e JavaScript
 
@@ -50,7 +59,17 @@ Criei o Model `Book` para representar os livros no sistema. Nele, defini os camp
 
 ## Próximos passos
 
-- [ ] Criar o controller e configurar as rotas dos livros.
+- [ ] Criar e testar o formulário de edição.
+- [ ] Adicionar exclusão com confirmação.
+- [ ] Criar o CSS próprio e responsivo.
+
+## Fontes para estudo
+
+- [Controllers](https://laravel.com/docs/13.x/controllers)
+- [Rotas](https://laravel.com/docs/13.x/routing)
+- [Blade](https://laravel.com/docs/13.x/blade)
+- [Proteção CSRF](https://laravel.com/docs/13.x/csrf)
+- [Validação](https://laravel.com/docs/13.x/validation)
 
 ## Como executar
 
