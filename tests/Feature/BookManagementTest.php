@@ -133,4 +133,39 @@ class BookManagementTest extends TestCase
             ...$updatedBook,
         ]);
     }
+
+    public function test_books_list_displays_a_protected_deletion_form_with_confirmation(): void
+    {
+        $book = Book::create([
+            'title' => 'Capitães da Areia',
+            'author' => 'Jorge Amado',
+            'category' => 'Romance',
+            'status' => 'available',
+        ]);
+
+        $this->get(route('books.index'))
+            ->assertOk()
+            ->assertSee('action="'.route('books.destroy', $book).'"', false)
+            ->assertSee('name="_token"', false)
+            ->assertSee('name="_method" value="DELETE"', false)
+            ->assertSee("return confirm('Tem certeza que deseja excluir este livro?')", false);
+    }
+
+    public function test_a_book_can_be_deleted(): void
+    {
+        $book = Book::create([
+            'title' => 'Iracema',
+            'author' => 'José de Alencar',
+            'category' => 'Romance',
+            'status' => 'borrowed',
+        ]);
+
+        $this->delete(route('books.destroy', $book))
+            ->assertRedirectToRoute('books.index')
+            ->assertSessionHas('success', 'Livro excluído com sucesso!');
+
+        $this->assertDatabaseMissing('books', [
+            'id' => $book->id,
+        ]);
+    }
 }

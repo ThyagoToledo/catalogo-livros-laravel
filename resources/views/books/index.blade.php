@@ -46,6 +46,19 @@
                                 <a href="{{ route('books.edit', $book) }}">
                                     Editar
                                 </a>
+
+                                <form
+                                    action="{{ route('books.destroy', $book) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Tem certeza que deseja excluir este livro?')"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit">
+                                        Excluir
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty
