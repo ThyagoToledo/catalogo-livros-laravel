@@ -18,6 +18,33 @@
     <section aria-labelledby="books-table-title">
         <h2 id="books-table-title">Livros cadastrados</h2>
 
+        <form action="{{ route('books.index') }}" method="GET" class="filter-form" role="search">
+            <div class="form-group">
+                <label for="search">Buscar</label>
+                <input
+                    type="search"
+                    id="search"
+                    name="search"
+                    value="{{ $search }}"
+                    placeholder="Título, autor ou categoria"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="">Todos</option>
+                    <option value="available" @selected($status === 'available')>Disponível</option>
+                    <option value="borrowed" @selected($status === 'borrowed')>Emprestado</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit">Filtrar</button>
+                <a href="{{ route('books.index') }}" class="button button-secondary">Limpar filtros</a>
+            </div>
+        </form>
+
         <div class="table-container">
             <table>
                 <thead>
@@ -66,7 +93,11 @@
                     @empty
                         <tr>
                             <td colspan="5">
-                                Nenhum livro cadastrado.
+                                @if ($search !== '' || in_array($status, ['available', 'borrowed'], true))
+                                    Nenhum livro encontrado com os filtros informados.
+                                @else
+                                    Nenhum livro cadastrado.
+                                @endif
                             </td>
                         </tr>
                     @endforelse

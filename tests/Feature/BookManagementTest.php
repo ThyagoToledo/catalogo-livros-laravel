@@ -28,6 +28,64 @@ class BookManagementTest extends TestCase
             ->assertSee('Disponível');
     }
 
+    public function test_books_can_be_searched_by_title_author_or_category(): void
+    {
+        Book::create([
+            'title' => 'Dom Casmurro',
+            'author' => 'Machado de Assis',
+            'category' => 'Romance',
+            'status' => 'available',
+        ]);
+        Book::create([
+            'title' => 'A Hora da Estrela',
+            'author' => 'Clarice Lispector',
+            'category' => 'Literatura brasileira',
+            'status' => 'borrowed',
+        ]);
+
+        $this->get(route('books.index', ['search' => 'Machado']))
+            ->assertOk()
+            ->assertSee('Dom Casmurro')
+            ->assertDontSee('A Hora da Estrela');
+
+        $this->get(route('books.index', ['search' => 'Literatura']))
+            ->assertOk()
+            ->assertSee('A Hora da Estrela')
+            ->assertDontSee('Dom Casmurro');
+    }
+
+    public function test_books_can_be_filtered_by_status_and_combined_with_search(): void
+    {
+        Book::create([
+            'title' => 'Dom Casmurro',
+            'author' => 'Machado de Assis',
+            'category' => 'Romance',
+            'status' => 'available',
+        ]);
+        Book::create([
+            'title' => 'Quincas Borba',
+            'author' => 'Machado de Assis',
+            'category' => 'Romance',
+            'status' => 'borrowed',
+        ]);
+
+        $this->get(route('books.index', ['search' => 'Machado', 'status' => 'borrowed']))
+            ->assertOk()
+            ->assertSee('Quincas Borba')
+            ->assertDontSee('Dom Casmurro')
+            ->assertSee('value="Machado"', false)
+            ->assertSee('value="borrowed" selected', false)
+            ->assertSee('Limpar filtros');
+    }
+
+    public function test_an_empty_filtered_list_displays_a_specific_message(): void
+    {
+        $this->get(route('books.index', ['search' => 'Inexistente']))
+            ->assertOk()
+            ->assertSee('Nenhum livro encontrado com os filtros informados.')
+            ->assertDontSee('Nenhum livro cadastrado.');
+    }
+
     public function test_a_book_can_be_created(): void
     {
         $book = [

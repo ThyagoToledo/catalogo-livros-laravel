@@ -18,6 +18,7 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - [x] Listar livros
 - [x] Editar livros
 - [x] Excluir livros
+- [x] Buscar e filtrar livros
 
 ## O que estou aprendendo
 
@@ -31,6 +32,7 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - Aprendi a enviar exclusões com um formulário protegido por CSRF e a pedir confirmação antes de remover um livro.
 - Aprendi a complementar a validação do Laravel com feedback acessível no navegador e a reutilizar os mesmos campos no cadastro e na edição.
 - Aprendi a impedir duplicidades pelo conjunto de título e autor, ignorando diferenças entre letras maiúsculas e minúsculas.
+- Aprendi a combinar consultas por texto e status, preservando os filtros na tela.
 
 ## Como desenvolvi
 
@@ -44,7 +46,7 @@ Criei o Model `Book` para representar os livros no sistema. Nele, defini os camp
 
 ### Controller
 
-Criei o `BookController` para listar os livros, abrir os formulários e validar, salvar, atualizar e excluir os dados enviados.
+Criei o `BookController` para listar os livros, abrir os formulários e validar, salvar, atualizar e excluir os dados enviados. A listagem pode ser pesquisada por título, autor ou categoria e filtrada pelo status.
 O catálogo considera duplicado um livro com o mesmo título e autor, mesmo quando a capitalização é diferente.
 
 ### Rotas
@@ -63,10 +65,6 @@ Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os b
 
 - **Dificuldade:** digitei o comando `make:model` de forma incorreta no terminal.
 - **Solução:** corrigi o comando para `php artisan make:model Book -m` e entendi que a opção `-m` também cria a Migration.
-
-## Próximos passos
-
-- [ ] Adicionar busca e filtro ao catálogo.
 
 ## Fontes para estudo
 

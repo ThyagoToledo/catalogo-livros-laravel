@@ -12,13 +12,28 @@ use Illuminate\View\View;
 
 class BookController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = trim($request->string('search')->toString());
+        $status = $request->string('status')->toString();
+
         $books = Book::query()
+            ->when($search !== '', function ($query) use ($search): void {
+                $query->where(function ($query) use ($search): void {
+                    $query
+                        ->where('title', 'like', "%{$search}%")
+                        ->orWhere('author', 'like', "%{$search}%")
+                        ->orWhere('category', 'like', "%{$search}%");
+                });
+            })
+            ->when(
+                in_array($status, ['available', 'borrowed'], true),
+                fn ($query) => $query->where('status', $status),
+            )
             ->orderBy('title')
             ->get();
 
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books', 'search', 'status'));
     }
 
     public function create(): View
