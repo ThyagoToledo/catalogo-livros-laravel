@@ -56,6 +56,17 @@ class BookManagementTest extends TestCase
         $this->assertDatabaseCount('books', 0);
     }
 
+    public function test_create_form_has_shared_accessible_browser_validation(): void
+    {
+        $this->get(route('books.create'))
+            ->assertOk()
+            ->assertSee('data-validate', false)
+            ->assertSee('novalidate', false)
+            ->assertSee('required aria-describedby="title-feedback" aria-invalid="false"', false)
+            ->assertSee('id="title-feedback" class="form-error" aria-live="polite"', false)
+            ->assertSee('value="">Selecione um status', false);
+    }
+
     public function test_edit_form_displays_the_current_book_data(): void
     {
         $book = Book::create([

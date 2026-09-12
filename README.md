@@ -29,6 +29,7 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - Usei a validação do Laravel para impedir o cadastro de dados inválidos.
 - Aprendi a preencher o formulário de edição com os dados atuais e preservar os valores após erros de validação.
 - Aprendi a enviar exclusões com um formulário protegido por CSRF e a pedir confirmação antes de remover um livro.
+- Aprendi a complementar a validação do Laravel com feedback acessível no navegador e a reutilizar os mesmos campos no cadastro e na edição.
 
 ## Como desenvolvi
 
@@ -50,7 +51,7 @@ Configurei rotas resource para manter as URLs e as ações do catálogo organiza
 
 ### Views
 
-Criei um layout compartilhado e as telas de listagem, cadastro e edição com Blade. Os formulários preservam os dados preenchidos quando há um erro de validação, e a listagem permite excluir um livro após confirmação.
+Criei um layout compartilhado e as telas de listagem, cadastro e edição com Blade. Os dois formulários reutilizam os mesmos campos, preservam os dados preenchidos quando há um erro e exibem feedback acessível. A listagem permite excluir um livro após confirmação.
 
 ### CSS e JavaScript
 
@@ -63,7 +64,7 @@ Criei um CSS próprio para deixar a navegação, a tabela, os formulários, os b
 
 ## Próximos passos
 
-- [ ] Adicionar validação e feedback visual aos formulários.
+- [ ] Impedir o cadastro de livros duplicados.
 
 ## Fontes para estudo
 

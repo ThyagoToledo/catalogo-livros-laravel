@@ -41,7 +41,8 @@ tbody tr:last-child td { border-bottom: 0; }
 .form-group label { display: block; margin-bottom: .4rem; color: #2c3950; font-weight: 700; }
 .form-group input, .form-group select { width: 100%; min-height: 2.75rem; padding: .65rem .75rem; border: 1px solid #aeb8c7; border-radius: .5rem; background: #fff; color: #17233d; }
 .form-group input:focus, .form-group select:focus { border-color: #2857a4; outline: 3px solid rgb(40 87 164 / 18%); }
-.form-error { margin: .4rem 0 0; color: #a52d35; font-size: .9rem; }
+.form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"] { border-color: #a52d35; }
+.form-error { min-height: 1.35rem; margin: .4rem 0 0; color: #a52d35; font-size: .9rem; }
 .form-actions { display: flex; justify-content: flex-end; gap: .75rem; margin-top: 1.75rem; }
 @media (max-width: 42rem) {
     .container { width: min(100% - 1.25rem, 68rem); }
