@@ -16,7 +16,7 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 
 - [x] Cadastrar livros
 - [x] Listar livros
-- [ ] Editar livros
+- [x] Editar livros
 - [ ] Excluir livros
 
 ## O que estou aprendendo
@@ -27,6 +27,7 @@ Projeto de estudos para desenvolver um CRUD de catálogo de livros com Laravel e
 - Aprendi a usar um controller resource para organizar as ações do catálogo.
 - Entendi como as rotas nomeadas conectam os formulários, o controller e as views.
 - Usei a validação do Laravel para impedir o cadastro de dados inválidos.
+- Aprendi a preencher o formulário de edição com os dados atuais e preservar os valores após erros de validação.
 
 ## Como desenvolvi
 
@@ -40,7 +41,7 @@ Criei o Model `Book` para representar os livros no sistema. Nele, defini os camp
 
 ### Controller
 
-Criei o `BookController` para listar os livros, abrir o formulário e validar e salvar os dados enviados.
+Criei o `BookController` para listar os livros, abrir os formulários e validar, salvar e atualizar os dados enviados.
 
 ### Rotas
 
@@ -48,7 +49,7 @@ Configurei rotas resource para manter as URLs e as ações do catálogo organiza
 
 ### Views
 
-Criei um layout compartilhado e as telas de listagem e cadastro com Blade. O formulário preserva os dados preenchidos quando há um erro de validação.
+Criei um layout compartilhado e as telas de listagem, cadastro e edição com Blade. Os formulários preservam os dados preenchidos quando há um erro de validação.
 
 ### CSS e JavaScript
 
@@ -59,7 +60,6 @@ Criei um layout compartilhado e as telas de listagem e cadastro com Blade. O for
 
 ## Próximos passos
 
-- [ ] Criar e testar o formulário de edição.
 - [ ] Adicionar exclusão com confirmação.
 - [ ] Criar o CSS próprio e responsivo.
 
