@@ -26,3 +26,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Local environment secrets; commit only explicit example templates
+.env.*
+!.env.example
+!.env.*.example
